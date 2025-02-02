@@ -32,7 +32,7 @@ def findOverlappingIndex(shortStr, longStr):
 def stashVolumesJson(volumesDict, location='C:/Users/jackk/Projects/luisa/data/allVolumes.json'):
     volumesStrDates = deepcopy(volumesDict)
 
-    for volume in volumesStrDates:
+    for volume in volumesStrDates[1:]:
         for entry in volume:
             entry['date'] = entry['date'].strftime('%m/%d/%Y')
 
@@ -43,7 +43,7 @@ def loadVolumesJson(location='C:/Users/jackk/Projects/luisa/data/allVolumes.json
     with open(location, 'r') as file:
         volumes = json.loads(file.read())
     
-    for volume in volumes:
+    for volume in volumes[1:]:
         for entry in volume:
             entry['date'] = datetime.strptime(entry['date'], '%m/%d/%Y').date()
 
@@ -242,8 +242,25 @@ def generateSingleVolumeEntriesFromPdf(volumeNum, tableOfContentsStartPageNum=4,
 
     return entries
 
+def generateVolume1Entry(pdfFolder='C:/Users/jackk/Projects/luisa/pdfs/'):
+    reader = PdfReader(f"{pdfFolder}/bookOfHeavenVolume1.pdf")
+
+    volume1Lines = []
+    for page in reader.pages[6:115]:
+        for line in page.extract_text().split('\n'):
+            if re.search(patterns['footer'], line) is None:
+                if re.search(r'\. *$', line):
+                    volume1Lines.append(line + '\n')
+                else:
+                    volume1Lines.append(line)
+    
+    return ''.join(volume1Lines)
+
 def generateAndSaveVolumes():
-    volumes = []
+    print('Volume 1')
+    volumes = [
+        generateVolume1Entry()
+    ]
     for i in range(2, 37):
         print(f"Volume {i}")
         volumes.append(
