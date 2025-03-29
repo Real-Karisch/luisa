@@ -92,7 +92,7 @@ def generateKeyHtml(volumesJson):
         keyHtmlBuilder.link(href="./styles.css", rel="stylesheet")
         keyHtmlBuilder('<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />')
 
-    with keyHtmlBuilder.div(id='mainwrap'):
+    with keyHtmlBuilder.div(id='mainwrap'):  
         with keyHtmlBuilder.div(style="text-align: center"):
             keyHtmlBuilder.h1(_t=f"Diary of Luisa Piccarreta - Full Index")
             keyHtmlBuilder.br()
