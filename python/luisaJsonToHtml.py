@@ -73,7 +73,7 @@ def generateVolumeHtml(volumeJson, volumeNum):
     with volumeHtmlBuilder.div(id='tightwrap'):
         for entry in volumeJson:
             with volumeHtmlBuilder.details():
-                volumeHtmlBuilder.summary(_t=f"{entry['date'].strftime('%m/%d/%Y')} - {entry['title']}", style="font-weight:bold")
+                volumeHtmlBuilder.summary(_t=f"{entry['date'].strftime('%m/%d/%Y')} - {entry['title']} [{len(entry['contents']):,} ch.]", style="font-weight:bold")
                 with volumeHtmlBuilder.div(id='expansionwrap'):
                     with volumeHtmlBuilder.span():
                         volumeHtmlBuilder(
